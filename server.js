@@ -93,14 +93,14 @@ console.log("USER FROM DATABASE" , users.rows)
         const currentuser = users.rows[0];
 
         if (!currentuser) {
-            return res.status(400).send({status: "error", message: "User Not Found With This Email and Password"});}
+            return res.status(400).send({status: "error", message: "User Not Found With This Email"});}
 
      
 
-console.log("Plain Password:", password);
-console.log("DB Password Hash:", currentuser.password_hash || currentuser.password);
-
-const isPasswordValid = await bcrypt.compare(password, currentuser.password_hash || currentuser.password);
+console.log("Password exists:", !!reqbody.password);
+console.log("Hash exists:", !!currentuser.password_hash);
+console.log("User:", currentuser);
+const isPasswordValid = await bcrypt.compare(reqbody.password, currentuser.password);
         if (!isPasswordValid) {
 
             return res.status(400).send({status: "error",message: "User Not Found With This Email And Password"});}
@@ -128,13 +128,13 @@ const isPasswordValid = await bcrypt.compare(password, currentuser.password_hash
         return res.status(200).send({
           message: "Login successful",
   users: {
-    id: users.id,
-    email: users.email,
+    id: currentuser.id,
+    email: currentuser.email,
   }
         });
 
     } catch (error) {
-
+console.log(error)
         return res.status(500).send({ status: "error",
             message: "Internal Server Error"
         });

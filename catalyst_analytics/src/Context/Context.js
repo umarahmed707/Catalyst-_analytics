@@ -5,7 +5,7 @@ export const GlobalContext = createContext();
 
 const data = {
   user: {},
-  isLogin: false,
+  isLogin: null,
   baseUrl: "/api/v1",
 };
 
