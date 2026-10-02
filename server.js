@@ -100,7 +100,7 @@ console.log("USER FROM DATABASE" , users.rows)
 console.log("Password exists:", !!reqbody.password);
 console.log("Hash exists:", !!currentuser.password_hash);
 console.log("User:", currentuser);
-const isPasswordValid = await bcrypt.compare(reqbody.password, currentuser.password);
+const isPasswordValid = await bcrypt.compare(reqbody.password, currentuser.password );
         if (!isPasswordValid) {
 
             return res.status(400).send({status: "error",message: "User Not Found With This Email And Password"});}
